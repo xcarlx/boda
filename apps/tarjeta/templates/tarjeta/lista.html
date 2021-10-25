@@ -1,0 +1,24 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Invitado</th>
+            <th>Pases</th>
+            <th>Teléfono</th>
+            <th>Confirmado</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tarjeta in object_list %}
+            <tr>
+                <td>{{ tarjeta.codigo }}</td>
+                <td>{{ tarjeta.invitado }}</td>
+                <td>{{ tarjeta.pases }}</td>
+                <td>{{ tarjeta.telefono }}</td>
+                <td>{{ tarjeta.confirmado }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

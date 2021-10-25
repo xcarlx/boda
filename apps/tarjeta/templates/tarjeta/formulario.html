@@ -1,0 +1,23 @@
+{% for field in form %}
+    {% if field.is_hidden %}
+        {{ field }}
+    {% else %}
+        <div class="alert-danger">
+            {{ field.errors }}
+        </div>
+
+
+        <div class="form-floating mb-3">
+            {{ field }}
+            <label for="{{ field.id_for_label }}">{{ field.label }}
+                {% if field.field.required %}
+                    <span class="text-danger">*</span>
+                {% endif %}
+            </label>
+
+        </div>
+        {% if field.help_text %}
+            <p class="help text-justify alert-warning p-2 m-1">{{ field.help_text|safe }}</p>
+        {% endif %}
+    {% endif %}
+{% endfor %}

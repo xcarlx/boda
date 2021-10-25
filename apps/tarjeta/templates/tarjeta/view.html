@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block estilos %}
+
+{% endblock %}
+{% block cuerpo_card %}
+    <div class="mb-2">
+        <button id="btnAlert" class="btn btn-primary btn-sm">
+            <span class="align-middle material-icons md-18">person</span>
+            Nueva Tarjeta
+        </button>
+
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script type="module">
+        import Modelo from "{% static 'inicio/js/modulo.js' %}";
+        import VistaTarjeta from "{% static 'tarjeta/js/index.js' %}";
+
+        const modelo = new Modelo();
+        new VistaTarjeta(modelo);
+    </script>
+    <script id="urlsTarjeta" type="application/json">
+        {
+            "crear": "{% url 'tarjeta:crear' %}"
+            "lista": "{% url 'tarjeta:lista' %}"
+        }
+    </script>
+{% endblock %}
