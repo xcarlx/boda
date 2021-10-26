@@ -1,5 +1,7 @@
 class VistaTarjeta {
     constructor(modelo) {
+        this.modelo = modelo;
+        this.contentTabla = document.getElementById('contentTabla');
         this.btnAlert = document.getElementById('btnAlert');
         const modal = document.getElementById('modalForm');
         const formulario = document.getElementById('formModal');
@@ -9,24 +11,18 @@ class VistaTarjeta {
 
             });
         }
+        this.cargar_tabla(urls.lista);
         formulario.onsubmit = ev => {
-            modelo.submit_event(ev, modal.querySelector(".modal-content"), formulario, resultado => {
-                let modal_instance = bootstrap.Modal.getInstance(modal)
-                try {
-                    resultado = JSON.parse(resultado);
-                    modal_instance.hide();
-                    modelo.toastShow(document.getElementById("toastBoda"), resultado.mensaje, {
-                        ms: 3000,
-                        bg: "bg-success"
-                    });
-                } catch (err) {
-                    modelo.toastShow(document.getElementById("toastBoda"), "Error", {
-                        ms: 3000,
-                        bg: "bg-danger"
-                    });
-                }
+            modelo.onSubmit(ev, modal.querySelector(".modal-content"), formulario, modal, resultado => {
+                this.cargar_tabla(urls.lista);
             });
         }
+    }
+
+    cargar_tabla(url) {
+        this.modelo.getUrlContenedor(url, this.contentTabla, () => {
+        })
+
     }
 }
 

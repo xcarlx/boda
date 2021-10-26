@@ -22,7 +22,7 @@ export default class Modelo {
         }
     }
 
-    async onSubmit(ev, element, table, formulario, modal, f) {
+    async onSubmit(ev, element, formulario, modal, f) {
         ev.preventDefault();
         element.showloader();
         const formdata = new FormData(formulario);
@@ -31,21 +31,36 @@ export default class Modelo {
                 method: "POST",
                 body: formdata,
             })
-
             const resultado = await res.text();
             try {
                 if (JSON.parse(resultado).success) {
+                    this.toastShow(document.getElementById("toastBoda"), JSON.parse(resultado).mensaje, {
+                        ms: 3000,
+                        bg: "bg-success"
+                    });
                     f(resultado);
+                }
+                if (modal) {
+                    let modal_instance = bootstrap.Modal.getInstance(modal);
+                    modal_instance.hide();
+
                 }
             } catch (e) {
                 if (modal) {
+                    modal.querySelector(".modal-body").innerHTML = resultado;
                 }
-            }
-            if (table) {
+                this.toastShow(document.getElementById("toastBoda"), "Error", {
+                    ms: 3000,
+                    bg: "bg-danger"
+                });
             }
             element.hideloader();
         } catch (err) {
             element.hideloader();
+            this.toastShow(document.getElementById("toastBoda"), "Error", {
+                ms: 3000,
+                bg: "bg-danger"
+            });
         }
     }
 
@@ -55,12 +70,10 @@ export default class Modelo {
             .then(response => response.text())
             .catch((error) => {
                 console.error('Error:', error)
-                $(".container-fluid").waitMe("hide")
             })
             .then((response) => {
                 // console.log('Success:', response);
-                $(".container-fluid").waitMe("hide");
-                contenedor.innerHTML = response;
+                element.innerHTML = response;
                 element.hideloader();
             }).catch(() => {
                 element.hideloader();

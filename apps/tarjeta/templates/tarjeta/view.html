@@ -9,8 +9,8 @@
             <span class="align-middle material-icons md-18">person</span>
             Nueva Tarjeta
         </button>
-
     </div>
+    <div id="contentTabla"></div>
 
 {% endblock %}
 {% block scripts %}
@@ -23,7 +23,7 @@
     </script>
     <script id="urlsTarjeta" type="application/json">
         {
-            "crear": "{% url 'tarjeta:crear' %}"
+            "crear": "{% url 'tarjeta:crear' %}",
             "lista": "{% url 'tarjeta:lista' %}"
         }
     </script>
